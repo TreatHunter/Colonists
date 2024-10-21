@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -111,5 +112,27 @@ public class HexGridMeshGenerator : MonoBehaviour
             }
         }
         return 0;
+    }
+
+    private void OnEnable()
+    {
+        MouseController.instance.OnLeftMouseClick += OnLeftMouseClick;
+        MouseController.instance.OnRightMouseClick += OnRightMouseClick;
+    }
+
+    private void OnDisable()
+    {
+        MouseController.instance.OnLeftMouseClick -= OnLeftMouseClick;
+        MouseController.instance.OnRightMouseClick -= OnRightMouseClick;
+    }
+
+    private void OnLeftMouseClick(RaycastHit hit)
+    {
+        Debug.Log("left");
+    }
+
+    private void OnRightMouseClick(RaycastHit hit)
+    {
+        Debug.Log("right");
     }
 }
