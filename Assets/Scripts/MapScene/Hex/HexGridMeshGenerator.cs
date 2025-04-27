@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using MapScene.Map;
+using MapScene.Map.Hexagon;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider))]
@@ -37,7 +39,7 @@ public class HexGridMeshGenerator : MonoBehaviour
         GetComponent<MeshCollider>().sharedMesh.Clear();
     }
 
-    public void GenerateGridMesh(int width, int height, float hexSize, HexOrientation hexOrientation, LayerMask layerMask)
+    public void GenerateGridMesh(int width, int height, float hexSize, HexagonsOrientation hexagonsOrientation, LayerMask layerMask)
     {
         ClearGridMesh();
         Vector3[] vertices = new Vector3[7 * width * height];
@@ -47,7 +49,7 @@ public class HexGridMeshGenerator : MonoBehaviour
             {
 
                 int centerPositionIndex = (z * width + x) * 7;
-                HexMath.AllVertices(hexSize, hexOrientation, x, z).CopyTo(vertices, centerPositionIndex);
+                HexagonsMathUtils.AllVertices(hexSize, hexagonsOrientation, x, z).CopyTo(vertices, centerPositionIndex);
 
             }
         }

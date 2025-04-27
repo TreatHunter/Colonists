@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using MapScene.Map;
+using MapScene.Map.Hexagon;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour
 {
-    [field: SerializeField] public HexOrientation Orientation { get; private set; }
+    [field: SerializeField] public HexagonsOrientation Orientation { get; private set; }
     [field: SerializeField] public int Width { get; private set; }
     [field: SerializeField] public int Height { get; private set; }
     [field: SerializeField] public float HexSize { get; private set; }
@@ -29,8 +31,8 @@ public class HexGrid : MonoBehaviour
             for (int z = 0; z < Height; z++)
             {
 
-                Vector3 centerPosition = HexMath.Center(HexSize, x, z, Orientation) + transform.position;
-                Vector3[] corners = HexMath.Corners(HexSize, Orientation);
+                Vector3 centerPosition = HexagonsMathUtils.Center(HexSize, x, z, Orientation) + transform.position;
+                Vector3[] corners = HexagonsMathUtils.Corners(HexSize, Orientation);
                 for (int corner = 0; corner < corners.Length; corner++)
                 {
                     Gizmos.DrawLine(
@@ -44,8 +46,3 @@ public class HexGrid : MonoBehaviour
     }
 }
 
-public enum HexOrientation
-{
-    FlatTop,
-    PointyTop
-}
